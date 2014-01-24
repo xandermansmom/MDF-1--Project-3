@@ -7,14 +7,17 @@
 //
 
 #import "BusinessViewController.h"
+#import "BusinessCustomCell.h"
 
+@interface BusinessViewController ()
+@end
 @implementation BusinessViewController
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
-    self = [super initWithFrame:frame];
+    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Initialization code
+        // Custom initialization
     }
     return self;
 }
@@ -22,7 +25,7 @@
 -(void)viewDidAppear:(BOOL)animated
 {
     //Where the map will focus
-    CLLocationCoordinate2D zoomLocation = CLLocationCoordinate2DMake();
+    CLLocationCoordinate2D zoomLocation = CLLocationCoordinate2DMake(30.571427, -98.275748);
     
     MKCoordinateSpan zoomSpan;
     zoomSpan.latitudeDelta = 3.5f;
@@ -34,7 +37,7 @@
     for (int i=0; i<10; i++)
     {
         MKPointAnnotation *point = [[MKPointAnnotation alloc]init];
-        point.coordinate = CLLocationCoordinate2DMake (f + (1.0f * i), f);
+        point.coordinate = CLLocationCoordinate2DMake (30.571427f, -98.275748f);
         point.title = @"Bella Medical Spa & Laser";
         point.subtitle = @"Marble Falls";
         [pinAnnotations addObject:point];
@@ -52,12 +55,42 @@
         pinAnnotationView = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"pinID"];
         
         pinAnnotationView.canShowCallout = true;
-        pinAnnotationView.animatesDrop = true;
+        //drop pin animation
+       pinAnnotationView.animatesDrop = true;
+        // show business name
+       
+        //offset callout
+        pinAnnotationView.calloutOffset = CGPointMake(-20, 5);
+        
     }
     //display the pin annotation view
     return pinAnnotationView;
 }
 
+- (void)locationManager:(CLLocationManager *)manager
+	didUpdateToLocation:(CLLocation *)newLocation
+		   fromLocation:(CLLocation *)oldLocation
+{
+    
+    
+}
 
+-(void)viewWillAppear:(BOOL)animated
+{ //create vars for labels
+    NSString *thisLat = [NSString stringWithFormat:@"Latitude: %f", _thisLocation.latitude];
+    NSString *thisLong = [NSString stringWithFormat:@"Longitude: %f", _thisLocation.longitude];
+    
+    //write to labels
+    self->nameLabel.text = self.thisName;
+    self->locationLabel.text = thisLat;
+    self->longLabel.text = thisLong;
+    
+}
+
+
+- (IBAction)unwindToMainMenu:(UIStoryboardSegue*)sender
+
+{
+}
 
 @end

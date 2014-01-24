@@ -11,10 +11,10 @@
 @interface BusinessCustomCell : UITableViewCell
 {
     IBOutlet UILabel *businessName;
-    IBOutlet UILabel *businessCity;
+    IBOutlet UILabel *businessAddress;
     IBOutlet UIImageView *businessImage;
 }
 
--(void)refreshCellWithInfo:(NSString*)firstString secondString:(NSString*)secondString cellIage:(UIImage*)cellImage;
+-(void)refreshCellWithInfo:(NSString*)firstString secondString:(NSString*)secondString cellImage:(UIImage*)cellImage;
 
 @end

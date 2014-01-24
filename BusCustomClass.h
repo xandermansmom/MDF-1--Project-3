@@ -7,11 +7,19 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <MapKit/MapKit.h>
 
 @interface BusCustomClass : NSObject
+<CLLocationManagerDelegate>
+
+{
+    NSString *name;
+    CLLocationCoordinate2D bLocation;
+}
 
 @property (nonatomic, strong)NSString *name;
 @property (nonatomic, strong)NSString *address;
-@property (nonatomic, strong)NSString *location;
+@property (nonatomic, assign)CLLocationCoordinate2D bLocation;
+@property (nonatomic, strong)UIImage *busImage;
 
 @end

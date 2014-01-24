@@ -7,6 +7,9 @@
 //
 
 #import "SecondViewController.h"
+#import "SharedData.h"
+#import "BusinessViewController.h"
+#import "BusCustomClass.h"
 
 @interface SecondViewController ()
 
@@ -14,20 +17,46 @@
 
 @implementation SecondViewController
 
-- (void)viewDidLoad
+-(void)viewDidAppear:(BOOL)animated
 {
+    //Where the map will focus
+    CLLocationCoordinate2D zoomLocation = CLLocationCoordinate2DMake(30.571427, -98.275748);
     
-    [[SettingsManager GetInstance]printSettings];
+    MKCoordinateSpan zoomSpan;
+    zoomSpan.latitudeDelta = 3.5f;
+    zoomSpan.longitudeDelta = 3.5f;
+    allBusMapView.region = MKCoordinateRegionMake(zoomLocation, zoomSpan);
     
-    [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+    NSMutableArray *pinAnnotations = [[NSMutableArray alloc]init];
+    for (int i=0; i<10; i++)
+    {
+        MKPointAnnotation *point = [[MKPointAnnotation alloc]init];
+        
+        
+        point.coordinate = CLLocationCoordinate2DMake (30.571427f, -98.275748f);
+        point.title = @"Bella Medical Spa & Laser";
+        point.subtitle = @"Marble Falls";
+        [pinAnnotations addObject:point];
+        
+        
+    }
+    
+    [allBusMapView addAnnotations:pinAnnotations];
 }
 
-- (void)didReceiveMemoryWarning
+- (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    //checks for existing pin annotation view
+    MKPinAnnotationView *pinAnnotationView = (MKPinAnnotationView*)[mapView dequeueReusableAnnotationViewWithIdentifier:@"pinID"];
+    if (pinAnnotationView == nil)
+    {
+        //creates a new pin annotation view if one cannot be reused
+        pinAnnotationView = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:@"pinID"];
+        
+        pinAnnotationView.canShowCallout = true;
+        pinAnnotationView.animatesDrop = true;
+    }
+    //display the pin annotation view
+    return pinAnnotationView;
 }
-
-
 @end

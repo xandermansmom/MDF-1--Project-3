@@ -14,7 +14,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
-        // Initialization code
+      
     }
     return self;
 }
@@ -26,10 +26,10 @@
     // Configure the view for the selected state
 }
 
--(void)refreshCellWithInfo:(NSString*)firstString secondString:(NSString*)secondString cellIage:(UIImage*)cellImage;
+-(void)refreshCellWithInfo:(NSString*)firstString secondString:(NSString*)secondString cellImage:(UIImage*)cellImage;
 {
     businessName.text = firstString;
-    businessCity.text = secondString;
+    businessAddress.text = secondString;
     businessImage.image = cellImage;
 }
 

@@ -10,6 +10,6 @@
 
 @implementation BusCustomClass
 
-@synthesize name, address, location;
+@synthesize name, address, busImage, bLocation;
 
 @end
